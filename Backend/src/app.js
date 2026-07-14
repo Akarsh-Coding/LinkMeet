@@ -22,6 +22,7 @@ app.use(cors());
 // const dns = require("dns");
 import dns from "dns";
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
+// dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const PORT = process.env.PORT || 8000;
 const dbUrl = process.env.ATLASDB_URL;
@@ -33,17 +34,31 @@ app.use(express.urlencoded({ limit: "40kb", extended: true }));
 app.use("/api/v1/users", UserRoutes);
 
 
+// const start = async () => {
+//     // console.log("ATLASDB_URL:", process.env.ATLASDB_URL);
+//     const connectionDb = await mongoose
+//         .connect(dbUrl)
+//         .then(() => {
+//             console.log("DB Connected");
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//         });
+//     // console.log(`Mongo Connected DB Host: ${connectionDb.connection.host}`)
+//     server.listen(PORT, () => {
+//         console.log(`App started on port ${PORT}!`);
+//     });
+// };
+
 const start = async () => {
-    // console.log("ATLASDB_URL:", process.env.ATLASDB_URL);
-    const connectionDb = await mongoose
-        .connect(dbUrl)
-        .then(() => {
-            console.log("DB Connected");
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    // console.log(`Mongo Connected DB Host: ${connectionDb.connection.host}`)
+    try {
+        await mongoose.connect(dbUrl);
+        console.log("DB Connected");
+    } catch (err) {
+        console.error("DB connection failed:", err);
+        process.exit(1); // don't start the server with no DB
+    }
+
     server.listen(PORT, () => {
         console.log(`App started on port ${PORT}!`);
     });
