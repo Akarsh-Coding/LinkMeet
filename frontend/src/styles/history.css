@@ -1,0 +1,276 @@
+/* ==========================================================================
+   History — stylesheet
+   Same design system as Home.css (blue/indigo brand on white), applied to
+   a simple list/empty/loading/error page.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap');
+
+.history-page {
+  --bg: #ffffff;
+  --bg-soft: #f5f8ff;
+  --border: #e7eaf3;
+
+  --text-primary: #0b1240;
+  --text-secondary: #5b6478;
+  --text-muted: #8a92a6;
+
+  --brand-blue: #0b6efd;
+  --brand-indigo: #2e2e8f;
+  --gradient-brand: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-indigo) 100%);
+
+  --state-error: #e5484d;
+  --state-error-soft: rgba(229, 72, 77, 0.1);
+
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.history-page *,
+.history-page *::before,
+.history-page *::after {
+  box-sizing: border-box;
+}
+
+.history-page :focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Topbar
+   ========================================================================== */
+
+.history-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.history-page .back-btn {
+  color: var(--text-secondary);
+  background: var(--bg-soft);
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.history-page .back-btn:hover {
+  background: rgba(11, 110, 253, 0.1);
+  color: var(--brand-blue);
+}
+
+.history-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--brand-blue);
+}
+
+.history-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Content area
+   ========================================================================== */
+
+.history-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 48px 0;
+}
+
+.history-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* ==========================================================================
+   Card (MUI overrides)
+   ========================================================================== */
+
+.history-page .history-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.history-page .history-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(11, 110, 253, 0.3);
+  box-shadow: 0 12px 24px rgba(11, 18, 64, 0.08);
+}
+
+.history-page .history-card-content,
+.history-page .history-card-content:last-child {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+}
+
+.history-card-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.history-page .history-card-code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-page .history-card-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Loading skeleton
+   ========================================================================== */
+
+.history-skeleton-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.history-skeleton-card {
+  height: 78px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, var(--bg-soft) 25%, #eef2fb 37%, var(--bg-soft) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ==========================================================================
+   Empty / error states
+   ========================================================================== */
+
+.history-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 90px 20px 60px;
+}
+
+.history-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--brand-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.history-state-icon--error {
+  background: var(--state-error-soft);
+  color: var(--state-error);
+}
+
+.history-state-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.history-state-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .history-topbar {
+    padding: 12px 20px;
+  }
+
+  .history-content {
+    padding: 28px 20px 0;
+  }
+
+  .history-list,
+  .history-skeleton-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Motion preference
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .history-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

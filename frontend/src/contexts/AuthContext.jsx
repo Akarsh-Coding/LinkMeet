@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
             });
             return request.data
         } catch
-         (err) {
+        (err) {
             throw err;
         }
     }
