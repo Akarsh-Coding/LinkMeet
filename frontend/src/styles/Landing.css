@@ -1,0 +1,347 @@
+/* ==========================================================================
+   Landing — stylesheet
+   Same brand system as Home/History/Authentication (blue/indigo, Space
+   Grotesk + Inter + IBM Plex Mono). This is the public, pre-login page,
+   so type runs a little bigger/bolder than the internal dashboard.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap');
+
+.landing-page {
+  --bg: #ffffff;
+  --bg-soft: #f5f8ff;
+  --border: #e7eaf3;
+
+  --text-primary: #0b1240;
+  --text-secondary: #5b6478;
+  --text-muted: #8a92a6;
+
+  --brand-blue: #0b6efd;
+  --brand-indigo: #2e2e8f;
+  --gradient-brand: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-indigo) 100%);
+
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.landing-page *,
+.landing-page *::before,
+.landing-page *::after {
+  box-sizing: border-box;
+}
+
+.landing-page :focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.nav-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.nav-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.nav-brand-link {
+  color: var(--text-primary);
+}
+
+.nav-brand-meet {
+  color: var(--brand-blue);
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 9px 16px;
+  border-radius: 10px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+  background: var(--bg-soft);
+  color: var(--text-primary);
+}
+
+.nav-login-btn {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 9px 22px;
+  border-radius: 10px;
+  background: var(--gradient-brand);
+  box-shadow: 0 10px 20px rgba(11, 110, 253, 0.22);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nav-login-btn:hover {
+  box-shadow: 0 12px 24px rgba(11, 110, 253, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.landing-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 88px 48px 96px;
+  min-height: calc(100vh - 68px);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(11, 110, 253, 0.05), transparent 40%),
+    radial-gradient(circle at 88% 80%, rgba(46, 46, 143, 0.05), transparent 40%);
+}
+
+.hero-copy {
+  flex: 1 1 480px;
+  max-width: 560px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  background: rgba(11, 110, 253, 0.08);
+  border: 1px solid rgba(11, 110, 253, 0.18);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(11, 110, 253, 0.18);
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 4.6vw, 3.4rem);
+  line-height: 1.14;
+  color: var(--text-primary);
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+
+.hero-title-accent {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin: 0 0 36px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 14px 30px;
+  border-radius: 12px;
+  background: var(--gradient-brand);
+  box-shadow: 0 14px 28px rgba(11, 110, 253, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary-link:hover {
+  box-shadow: 0 16px 32px rgba(11, 110, 253, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-primary-link:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-ghost-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 14px 26px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.btn-ghost-link:hover {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+  background: rgba(11, 110, 253, 0.06);
+}
+
+/* ==========================================================================
+   Hero visual
+   ========================================================================== */
+
+.hero-visual {
+  position: relative;
+  flex: 1 1 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 420px;
+}
+
+.hero-blob {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+}
+
+.hero-blob--blue {
+  background: var(--brand-blue);
+  top: 0;
+  left: 4%;
+}
+
+.hero-blob--indigo {
+  background: var(--brand-indigo);
+  bottom: 0;
+  right: 4%;
+}
+
+.hero-mobile-image {
+  position: relative;
+  z-index: 2;
+  width: 82%;
+  filter: drop-shadow(0 30px 54px rgba(11, 18, 64, 0.18));
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .landing-hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 48px 24px 64px;
+    gap: 40px;
+  }
+
+  .hero-copy {
+    max-width: 100%;
+  }
+
+  .hero-eyebrow {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    max-width: 280px;
+  }
+
+  .landing-nav {
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav-list {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .nav-login-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   Motion preference
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-page * {
+    transition: none !important;
+  }
+}
