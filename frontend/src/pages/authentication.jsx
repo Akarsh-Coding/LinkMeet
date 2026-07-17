@@ -1,174 +1,225 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AuthContext } from '../contexts/AuthContext';
-import { Snackbar } from '@mui/material';
+import '../styles/Authentication.css';
 
-
-
-
-const defaultTheme = createTheme();
+const REMEMBERED_USERNAME_KEY = 'linkmeet_remembered_username';
 
 export default function Authentication() {
 
-    
+    const [formState, setFormState] = React.useState(0); // 0 = sign in, 1 = sign up
 
-    const [username, setUsername] = React.useState();
-    const [password, setPassword] = React.useState();
-    const [name, setName] = React.useState();
-    const [error, setError] = React.useState();
-    const [message, setMessage] = React.useState();
+    const [name, setName] = React.useState('');
+    const [username, setUsername] = React.useState(() => localStorage.getItem(REMEMBERED_USERNAME_KEY) || '');
+    const [password, setPassword] = React.useState('');
+    const [rememberMe, setRememberMe] = React.useState(() => Boolean(localStorage.getItem(REMEMBERED_USERNAME_KEY)));
+    const [showPassword, setShowPassword] = React.useState(false);
 
-
-    const [formState, setFormState] = React.useState(0);
-
-    const [open, setOpen] = React.useState(false)
-
+    const [error, setError] = React.useState('');
+    const [message, setMessage] = React.useState('');
+    const [open, setOpen] = React.useState(false);
+    const [submitting, setSubmitting] = React.useState(false);
 
     const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
-    let handleAuth = async () => {
+    let handleSwitchForm = (nextState) => {
+        setFormState(nextState);
+        setError('');
+    }
+
+    let handleAuth = async (e) => {
+        e.preventDefault();
+        setError('');
+        setSubmitting(true);
+
         try {
             if (formState === 0) {
+                await handleLogin(username, password);
 
-                let result = await handleLogin(username, password)
-
-
+                if (rememberMe) {
+                    localStorage.setItem(REMEMBERED_USERNAME_KEY, username);
+                } else {
+                    localStorage.removeItem(REMEMBERED_USERNAME_KEY);
+                }
             }
+
             if (formState === 1) {
                 let result = await handleRegister(name, username, password);
-                console.log(result);
-                setUsername("");
+                setName('');
+                setUsername('');
+                setPassword('');
                 setMessage(result);
                 setOpen(true);
-                setError("")
-                setFormState(0)
-                setPassword("")
+                setFormState(0);
             }
         } catch (err) {
-
             console.log(err);
-            let message = (err.response.data.message);
-            setError(message);
+            setError(err?.response?.data?.message || 'Something went wrong. Please try again.');
+        } finally {
+            setSubmitting(false);
         }
     }
 
-
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
-                <Grid
-                    item
-                    xs={false}
-                    sm={4}
-                    md={7}
-                    sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
-                        sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
+        <div className="auth-page">
 
+            <div className="auth-visual">
+                <span className="auth-blob auth-blob--a" aria-hidden="true"></span>
+                <span className="auth-blob auth-blob--b" aria-hidden="true"></span>
 
-                        <div>
-                            <Button variant={formState === 0 ? "contained" : ""} onClick={() => { setFormState(0) }}>
-                                Sign In
-                            </Button>
-                            <Button variant={formState === 1 ? "contained" : ""} onClick={() => { setFormState(1) }}>
-                                Sign Up
-                            </Button>
+                <div className="auth-visual-content">
+                    <div className="auth-logo-frame">
+                        <span className="auth-corner auth-corner-tl" aria-hidden="true"></span>
+                        <span className="auth-corner auth-corner-tr" aria-hidden="true"></span>
+                        <span className="auth-corner auth-corner-bl" aria-hidden="true"></span>
+                        <span className="auth-corner auth-corner-br" aria-hidden="true"></span>
+                        <div className="auth-logo-badge">
+                            <img src="/logo3.png" alt="LinkMeet logo" className="auth-logo" />
                         </div>
+                    </div>
+                    <h2 className="auth-visual-title">Connect. Meet. Together.</h2>
+                    <p className="auth-visual-subtitle">
+                        Quality video calls, made simple. Sign in to jump back into a meeting, or create an account to get started.
+                    </p>
+                </div>
+            </div>
 
-                        <Box component="form" noValidate sx={{ mt: 1 }}>
-                            {formState === 1 ? <TextField
+            <div className="auth-panel">
+                <div className="auth-card">
+
+                    <div className="auth-tabs" role="tablist" aria-label="Sign in or create an account">
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected={formState === 0}
+                            className={`auth-tab ${formState === 0 ? 'auth-tab--active' : ''}`}
+                            onClick={() => handleSwitchForm(0)}
+                        >
+                            Sign In
+                        </button>
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected={formState === 1}
+                            className={`auth-tab ${formState === 1 ? 'auth-tab--active' : ''}`}
+                            onClick={() => handleSwitchForm(1)}
+                        >
+                            Sign Up
+                        </button>
+                    </div>
+
+                    <h1 className="auth-title">{formState === 0 ? 'Welcome back' : 'Create your account'}</h1>
+                    <p className="auth-subtitle">
+                        {formState === 0 ? 'Sign in to join or start a meeting.' : 'It only takes a minute to get started.'}
+                    </p>
+
+                    <form className="auth-form" noValidate onSubmit={handleAuth}>
+
+                        {formState === 1 && (
+                            <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="username"
+                                id="name"
                                 label="Full Name"
-                                name="username"
+                                name="name"
                                 value={name}
                                 autoFocus
+                                className="auth-input"
                                 onChange={(e) => setName(e.target.value)}
-                            /> : <></>}
-
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                name="username"
-                                value={username}
-                                autoFocus
-                                onChange={(e) => setUsername(e.target.value)}
-
                             />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                value={password}
-                                type="password"
-                                onChange={(e) => setPassword(e.target.value)}
+                        )}
 
-                                id="password"
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            value={username}
+                            autoFocus={formState === 0}
+                            className="auth-input"
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="password"
+                            name="password"
+                            label="Password"
+                            value={password}
+                            type={showPassword ? 'text' : 'password'}
+                            className="auth-input"
+                            onChange={(e) => setPassword(e.target.value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            edge="end"
+                                            aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+
+                        {formState === 0 && (
+                            <FormControlLabel
+                                className="auth-remember"
+                                control={
+                                    <Checkbox
+                                        checked={rememberMe}
+                                        onChange={(e) => setRememberMe(e.target.checked)}
+                                        size="small"
+                                    />
+                                }
+                                label="Remember my username"
                             />
+                        )}
 
-                            <p style={{ color: "red" }}>{error}</p>
+                        {error && <Alert severity="error" className="auth-alert">{error}</Alert>}
 
-                            <Button
-                                type="button"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                onClick={handleAuth}
-                            >
-                                {formState === 0 ? "Login " : "Register"}
-                            </Button>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            disabled={submitting}
+                            className="btn-primary auth-submit"
+                        >
+                            {submitting ? 'Please wait…' : (formState === 0 ? 'Sign In' : 'Create account')}
+                        </Button>
 
-                        </Box>
-                    </Box>
-                </Grid>
-            </Grid>
+                    </form>
+
+                </div>
+            </div>
 
             <Snackbar
-
                 open={open}
                 autoHideDuration={4000}
-                message={message}
-            />
+                onClose={() => setOpen(false)}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            >
+                <Alert onClose={() => setOpen(false)} severity="success" variant="filled" className="auth-snackbar-alert">
+                    {message}
+                </Alert>
+            </Snackbar>
 
-        </ThemeProvider>
+        </div>
     );
 }

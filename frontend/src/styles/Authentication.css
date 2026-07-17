@@ -1,0 +1,318 @@
+/* ==========================================================================
+   Authentication — stylesheet
+   Same brand system as Home/History (blue/indigo, Space Grotesk + Inter +
+   IBM Plex Mono). The left panel replaces the old random Unsplash image
+   with a fully branded gradient panel, so nothing depends on an external
+   image service that may be slow, blocked, or unavailable.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap');
+
+.auth-page {
+  --bg: #ffffff;
+  --bg-soft: #f5f8ff;
+  --border: #e7eaf3;
+
+  --text-primary: #0b1240;
+  --text-secondary: #5b6478;
+  --text-muted: #8a92a6;
+
+  --brand-blue: #0b6efd;
+  --brand-blue-deep: #0047ff;
+  --brand-indigo: #2e2e8f;
+  --brand-indigo-deep: #1d1b5e;
+  --gradient-brand: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-indigo) 100%);
+
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg);
+}
+
+.auth-page *,
+.auth-page *::before,
+.auth-page *::after {
+  box-sizing: border-box;
+}
+
+.auth-page :focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Left panel — brand visual (replaces the old Unsplash background image)
+   ========================================================================== */
+
+.auth-visual {
+  flex: 1 1 55%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  background: linear-gradient(160deg, var(--brand-blue) 0%, var(--brand-indigo-deep) 100%);
+}
+
+.auth-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  filter: blur(70px);
+}
+
+.auth-blob--a {
+  width: 340px;
+  height: 340px;
+  top: -8%;
+  left: -6%;
+}
+
+.auth-blob--b {
+  width: 280px;
+  height: 280px;
+  bottom: -10%;
+  right: -4%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.auth-visual-content {
+  position: relative;
+  z-index: 2;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.auth-logo-frame {
+  position: relative;
+  padding: 10px;
+}
+
+.auth-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+}
+
+.auth-corner-tl { top: 0; left: 0; border-right: none; border-bottom: none; border-radius: 6px 0 0 0; }
+.auth-corner-tr { top: 0; right: 0; border-left: none; border-bottom: none; border-radius: 0 6px 0 0; }
+.auth-corner-bl { bottom: 0; left: 0; border-right: none; border-top: none; border-radius: 0 0 0 6px; }
+.auth-corner-br { bottom: 0; right: 0; border-left: none; border-top: none; border-radius: 0 0 6px 0; }
+
+.auth-logo-badge {
+  width: 84px;
+  height: 84px;
+  background: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 44px rgba(11, 18, 64, 0.25);
+}
+
+.auth-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.auth-visual-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.85rem;
+  line-height: 1.25;
+  color: #ffffff;
+  margin: 0;
+}
+
+.auth-visual-subtitle {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Right panel — form
+   ========================================================================== */
+
+.auth-panel {
+  flex: 1 1 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-soft);
+  border-radius: 100px;
+  padding: 4px;
+  margin-bottom: 28px;
+}
+
+.auth-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px 0;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-tab:hover {
+  color: var(--text-primary);
+}
+
+.auth-tab--active {
+  background: #ffffff;
+  color: var(--brand-blue);
+  box-shadow: 0 4px 12px rgba(11, 18, 64, 0.1);
+}
+
+.auth-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin: 0 0 6px;
+  color: var(--text-primary);
+}
+
+.auth-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 8px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   MUI overrides — inputs, checkbox, alert, button (scoped to this page)
+   ========================================================================== */
+
+.auth-page .auth-input .MuiOutlinedInput-root {
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+.auth-page .auth-input .MuiOutlinedInput-notchedOutline {
+  border-color: var(--border);
+}
+
+.auth-page .auth-input:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--brand-blue);
+}
+
+.auth-page .auth-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--brand-blue);
+  border-width: 1px;
+}
+
+.auth-page .auth-input .MuiInputLabel-root.Mui-focused {
+  color: var(--brand-blue);
+}
+
+.auth-page .auth-remember {
+  margin: 2px 0 4px -9px;
+}
+
+.auth-page .auth-remember .MuiFormControlLabel-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.auth-page .auth-remember .Mui-checked {
+  color: var(--brand-blue) !important;
+}
+
+.auth-page .auth-alert {
+  border-radius: 10px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.auth-page .btn-primary {
+  background: var(--gradient-brand);
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  padding: 12px 0;
+  margin-top: 20px;
+  box-shadow: 0 12px 24px rgba(11, 110, 253, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-page .btn-primary:hover {
+  box-shadow: 0 14px 28px rgba(11, 110, 253, 0.32);
+  transform: translateY(-1px);
+}
+
+.auth-page .btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.auth-page .btn-primary.Mui-disabled {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  box-shadow: none;
+  transform: none;
+}
+
+.auth-snackbar-alert.MuiAlert-filledSuccess {
+  background: var(--brand-blue);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .auth-visual {
+    display: none;
+  }
+
+  .auth-panel {
+    flex: 1 1 100%;
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .auth-tab {
+    font-size: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   Motion preference
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-page * {
+    transition: none !important;
+  }
+}
