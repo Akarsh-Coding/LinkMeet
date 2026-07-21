@@ -622,7 +622,9 @@ export default function VideoMeetComponent() {
                 <div className="lobby-screen">
                     <div className="lobby-card">
 
-                        <div className="brand-logo">LinkMeet</div>
+                        <div className="brand-logo">
+                            <span className="brand-part-1">Link</span><span className="brand-part-2">Meet</span>
+                        </div>
 
                         <div className="lobby-eyebrow">
                             <span className="tally-dot" aria-hidden="true"></span>
@@ -747,7 +749,9 @@ export default function VideoMeetComponent() {
 
                         <div className="stage-header">
                             <div className="stage-status">
-                                <span className="brand-logo brand-logo--small" aria-hidden="true">LinkMeet</span>
+                                <span className="brand-logo brand-logo--small" aria-hidden="true">
+                                    <span className="brand-part-1">Link</span><span className="brand-part-2">Meet</span>
+                                </span>
                                 <span className="tally-dot tally-dot--live" aria-hidden="true"></span>
                                 LIVE
                             </div>

@@ -121,15 +121,21 @@
 }
 
 .brand-logo {
+  display: inline-block;
+  white-space: nowrap;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: 0.01em;
   margin-bottom: 10px;
-  background: linear-gradient(90deg, #2f6bff, #6f42f5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+}
+
+.brand-part-1 {
+  color: #4d7bff;
+}
+
+.brand-part-2 {
+  color: #8a5cf6;
 }
 
 .brand-logo--small {
