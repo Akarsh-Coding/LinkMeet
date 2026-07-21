@@ -1,10 +1,3 @@
-/* ==========================================================================
-   Home — stylesheet
-   Palette sampled directly from the LinkMeet logo: bright blue + indigo
-   duo-tone on a clean white canvas, navy text. Same type system (Space
-   Grotesk / Inter / IBM Plex Mono) as the call screen, just in light mode.
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap');
 
 .home-page {
@@ -40,9 +33,7 @@
   border-radius: 4px;
 }
 
-/* ==========================================================================
-   Navbar
-   ========================================================================== */
+/* ---------- Navbar  -------- */
 
 .navBar {
   display: flex;
@@ -122,9 +113,7 @@
   background: rgba(11, 110, 253, 0.06);
 }
 
-/* ==========================================================================
-   Hero
-   ========================================================================== */
+/* ----------- Hero  ------------- */
 
 .meetContainer {
   display: flex;
@@ -189,9 +178,7 @@
   min-width: 220px;
 }
 
-/* ==========================================================================
-   MUI overrides — inputs & buttons (scoped to this page)
-   ========================================================================== */
+/* ------------  MUI overrides ------------ */
 
 .home-page .meeting-input .MuiOutlinedInput-root {
   background: #ffffff;
@@ -242,9 +229,11 @@
   box-shadow: none;
 }
 
-/* ==========================================================================
-   Hero visual — echoes the logo's overlapping blue/indigo figures
-   ========================================================================== */
+.btn-primary{
+  align-self: center;
+}
+
+/* ----------- Hero visual ----------- */
 
 .rightPanel {
   flex: 1 1 420px;
@@ -291,9 +280,7 @@
   filter: drop-shadow(0 24px 48px rgba(29, 27, 94, 0.16));
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
+/* ------------- Responsive  -------------- */
 
 @media (max-width: 900px) {
   .meetContainer {
@@ -343,9 +330,7 @@
   }
 }
 
-/* ==========================================================================
-   Motion preference
-   ========================================================================== */
+/* ------------  Motion preference ------------ */
 
 @media (prefers-reduced-motion: reduce) {
   .home-page * {

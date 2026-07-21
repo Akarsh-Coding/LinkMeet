@@ -1,10 +1,3 @@
-/* ==========================================================================
-   Landing — stylesheet
-   Same brand system as Home/History/Authentication (blue/indigo, Space
-   Grotesk + Inter + IBM Plex Mono). This is the public, pre-login page,
-   so type runs a little bigger/bolder than the internal dashboard.
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap');
 
 .landing-page {
@@ -38,9 +31,7 @@
   border-radius: 4px;
 }
 
-/* ==========================================================================
-   Nav
-   ========================================================================== */
+/* ----------  navbar ------------ */
 
 .landing-nav {
   display: flex;
@@ -122,9 +113,7 @@
   transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   Hero
-   ========================================================================== */
+/* ----------- Hero  ------------ */
 
 .landing-hero {
   display: flex;
@@ -245,9 +234,7 @@
   background: rgba(11, 110, 253, 0.06);
 }
 
-/* ==========================================================================
-   Hero visual
-   ========================================================================== */
+/* ------------  Hero visual ----------- */
 
 .hero-visual {
   position: relative;
@@ -286,9 +273,7 @@
   filter: drop-shadow(0 30px 54px rgba(11, 18, 64, 0.18));
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
+/* --------- Responsive  ----------- */
 
 @media (max-width: 900px) {
   .landing-hero {
@@ -336,9 +321,7 @@
   }
 }
 
-/* ==========================================================================
-   Motion preference
-   ========================================================================== */
+/* -----------  Motion preference  ----------- */
 
 @media (prefers-reduced-motion: reduce) {
   .landing-page * {

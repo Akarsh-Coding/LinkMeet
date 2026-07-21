@@ -1,10 +1,3 @@
-/* ==========================================================================
-   VideoMeet — stylesheet
-   Direction: a calm "broadcast control room" for the call — deep charcoal
-   surfaces, a single tally-light accent for on/off state, and camera
-   viewfinder brackets on every video tile as the signature motif.
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 .video-meet {
@@ -47,9 +40,7 @@
   border-radius: 4px;
 }
 
-/* ==========================================================================
-   Shared bits — tally dot, viewfinder corners
-   ========================================================================== */
+/* ----------------- Shared bits --------------- */
 
 .tally-dot {
   width: 8px;
@@ -88,14 +79,13 @@
 .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
 
 .video-tile:hover .corner,
-.viewfinder:hover .corner {
+.viewfinder:hover .corner,
+.screen-share-stage:hover .corner {
   opacity: 1;
   border-color: var(--accent-live);
 }
 
-/* ==========================================================================
-   Lobby
-   ========================================================================== */
+/* ----------  Lobby ----------- */
 
 .lobby-screen {
   min-height: 100vh;
@@ -130,6 +120,24 @@
   margin-bottom: 14px;
 }
 
+.brand-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #2f6bff, #6f42f5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-logo--small {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+  margin-right: 4px;
+}
+
 .lobby-title {
   font-family: var(--font-display);
   font-size: 1.6rem;
@@ -160,10 +168,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scaleX(-1); /* mirror, like looking in a mirror while framing yourself */
+  transform: scaleX(-1);
 }
 
-.viewfinder-fallback {
+.viewfinder-fallback,
+.video-tile-fallback {
   position: absolute;
   inset: 0;
   display: flex;
@@ -179,7 +188,8 @@
   z-index: 1;
 }
 
-.viewfinder-fallback svg {
+.viewfinder-fallback svg,
+.video-tile-fallback svg {
   font-size: 28px;
   color: var(--text-muted);
 }
@@ -226,9 +236,7 @@
   gap: 14px;
 }
 
-/* ==========================================================================
-   MUI overrides — inputs & buttons (scoped to this component)
-   ========================================================================== */
+/* ------------  MUI overrides  ------------- */
 
 .video-meet .mv-input .MuiOutlinedInput-root {
   background: var(--panel-raised);
@@ -308,9 +316,7 @@
   color: var(--text-muted);
 }
 
-/* ==========================================================================
-   Meeting layout
-   ========================================================================== */
+/* --------- Meeting layout  ----------- */
 
 .meetVideoContainer {
   height: 100vh;
@@ -373,7 +379,7 @@
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  min-height: 160px; /* safety net if aspect-ratio can't resolve for any reason */
+  min-height: 160px;
 }
 
 .video-tile video {
@@ -385,6 +391,50 @@
 
 .video-tile--self video {
   transform: scaleX(-1);
+}
+
+/* ------------  Screen sharing  ------------- */
+
+.screen-share-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0 24px 120px;
+}
+
+.screen-share-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.screen-share-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  display: block;
+}
+
+.participant-strip {
+  flex-shrink: 0;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.video-tile--strip {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 120px;
+  aspect-ratio: unset;
 }
 
 .video-tile {
@@ -417,9 +467,7 @@
   flex-shrink: 0;
 }
 
-/* ==========================================================================
-   Control dock
-   ========================================================================== */
+/* ------------  Control dock  ------------ */
 
 .buttonContainers {
   position: fixed;
@@ -495,9 +543,7 @@
   box-shadow: 0 0 0 2px var(--panel-raised);
 }
 
-/* ==========================================================================
-   Chat panel
-   ========================================================================== */
+/* ----------  Chat panel  -------------- */
 
 .chatRoom {
   width: 340px;
@@ -602,9 +648,7 @@
   border-top: 1px solid var(--border);
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
+/* ------------- Responsive  -------------- */
 
 @media (max-width: 860px) {
   .lobby-card {
@@ -627,14 +671,22 @@
     padding-bottom: 140px;
   }
 
+  .screen-share-layout {
+    padding: 0 16px 140px;
+  }
+
+  .video-tile--strip {
+    width: 130px;
+    height: 84px;
+  }
+
   .stage-header {
     padding: 14px 16px;
   }
 }
 
-/* ==========================================================================
-   Motion preference
-   ========================================================================== */
+
+/* ------------  Motion preference -------------- */
 
 @media (prefers-reduced-motion: reduce) {
   .tally-dot--live {
