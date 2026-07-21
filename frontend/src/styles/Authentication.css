@@ -1,11 +1,3 @@
-/* ==========================================================================
-   Authentication — stylesheet
-   Same brand system as Home/History (blue/indigo, Space Grotesk + Inter +
-   IBM Plex Mono). The left panel replaces the old random Unsplash image
-   with a fully branded gradient panel, so nothing depends on an external
-   image service that may be slow, blocked, or unavailable.
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap');
 
 .auth-page {
@@ -42,9 +34,7 @@
   border-radius: 4px;
 }
 
-/* ==========================================================================
-   Left panel — brand visual (replaces the old Unsplash background image)
-   ========================================================================== */
+/* ---------- Left panel — brand visual ------------ */
 
 .auth-visual {
   flex: 1 1 55%;
@@ -139,9 +129,7 @@
   margin: 0;
 }
 
-/* ==========================================================================
-   Right panel — form
-   ========================================================================== */
+/* ---------- Right panel — form  ----------- */
 
 .auth-panel {
   flex: 1 1 45%;
@@ -208,9 +196,7 @@
   flex-direction: column;
 }
 
-/* ==========================================================================
-   MUI overrides — inputs, checkbox, alert, button (scoped to this page)
-   ========================================================================== */
+/* ---------- MUI overrides ------------ */
 
 .auth-page .auth-input .MuiOutlinedInput-root {
   background: #ffffff;
@@ -286,9 +272,7 @@
   background: var(--brand-blue);
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
+/* ---------  Responsive  ------------ */
 
 @media (max-width: 900px) {
   .auth-visual {
@@ -307,9 +291,7 @@
   }
 }
 
-/* ==========================================================================
-   Motion preference
-   ========================================================================== */
+/* ---------- Motion preference ----------- */
 
 @media (prefers-reduced-motion: reduce) {
   .auth-page * {
