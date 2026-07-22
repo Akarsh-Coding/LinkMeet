@@ -49,7 +49,11 @@
   background: var(--text-muted);
   display: inline-block;
   flex-shrink: 0;
+  /* margin-top: 15px; */
+  margin-left: 30px;
 }
+
+/* .status-lable{margin-top: 15px;} */
 
 .tally-dot--live {
   background: var(--accent-live);
@@ -118,6 +122,25 @@
   letter-spacing: 0.12em;
   color: var(--text-secondary);
   margin-bottom: 14px;
+}
+
+.lobby-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.lobby-header-row .brand-logo,
+.lobby-header-row .lobby-eyebrow {
+  margin-bottom: 0;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 14px;
 }
 
 .brand-logo {
@@ -276,6 +299,16 @@
   color: var(--text-primary);
 }
 
+.video-meet .mv-input .MuiInputBase-input:-webkit-autofill,
+.video-meet .mv-input .MuiInputBase-input:-webkit-autofill:hover,
+.video-meet .mv-input .MuiInputBase-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-primary);
+  -webkit-box-shadow: 0 0 0px 1000px var(--panel-raised) inset;
+  box-shadow: 0 0 0px 1000px var(--panel-raised) inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: var(--text-primary);
+}
+
 .video-meet .btn-primary {
   background: var(--accent-live);
   color: #04150f;
@@ -410,10 +443,20 @@
   padding: 0 24px 120px;
 }
 
-.screen-share-stage {
-  position: relative;
+.screen-share-stage-wrap {
   flex: 1;
   min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-share-stage {
+  position: relative;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
   background: #000;
   border: 1px solid var(--border);
   border-radius: 16px;

@@ -4,7 +4,7 @@ import { Badge, IconButton, TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
-import  "../styles/VideoMeet.css";
+import "../styles/VideoMeet.css";
 import CallEndIcon from '@mui/icons-material/CallEnd'
 import MicIcon from '@mui/icons-material/Mic'
 import MicOffIcon from '@mui/icons-material/MicOff'
@@ -79,7 +79,6 @@ export default function VideoMeetComponent() {
 
     let [remoteMeta, setRemoteMeta] = useState({});
 
-
     const activeSharerRef = useRef(null);
     useEffect(() => { activeSharerRef.current = activeSharerId; }, [activeSharerId]);
 
@@ -95,7 +94,7 @@ export default function VideoMeetComponent() {
     useEffect(() => {
         console.log("HELLO")
         getPermissions();
-    },[])
+    }, [])
 
     let getDislayMedia = () => {
         if (screen) {
@@ -109,7 +108,7 @@ export default function VideoMeetComponent() {
                     .then(getDislayMediaSuccess)
                     .catch((e) => {
                         console.log(e);
-                        
+
                         setScreen(false);
                     })
             }
@@ -385,7 +384,7 @@ export default function VideoMeetComponent() {
                                 return updatedVideos;
                             });
                         } else {
-                            
+
                             console.log("CREATING NEW");
                             let newVideo = {
                                 socketId: socketListId,
@@ -403,7 +402,7 @@ export default function VideoMeetComponent() {
                     };
 
 
-                    
+
                     if (window.localStream !== undefined && window.localStream !== null) {
                         connections[socketListId].addStream(window.localStream)
                     } else {
@@ -412,7 +411,7 @@ export default function VideoMeetComponent() {
                         connections[socketListId].addStream(window.localStream)
                     }
 
-                    
+
                     if (window.localScreenStream) {
                         connections[socketListId].addStream(window.localScreenStream)
                     }
@@ -537,7 +536,7 @@ export default function VideoMeetComponent() {
         // this.setState({ message: "", sender: username })
     }
 
-    
+
     let connect = () => {
         setAskForUsername(false);
         getMedia();
@@ -622,13 +621,15 @@ export default function VideoMeetComponent() {
                 <div className="lobby-screen">
                     <div className="lobby-card">
 
-                        <div className="brand-logo">
-                            <span className="brand-part-1">Link</span><span className="brand-part-2">Meet</span>
-                        </div>
+                        <div className="lobby-header-row">
+                            <div className="brand-logo">
+                                <span className="brand-part-1">Link</span><span className="brand-part-2">Meet</span>
+                            </div>
 
-                        <div className="lobby-eyebrow">
-                            <span className="tally-dot" aria-hidden="true"></span>
-                            READY TO JOIN
+                            <div className="lobby-eyebrow">
+                                <span className="tally-dot" aria-hidden="true"></span>
+                                <div className='status-lable'>READY TO JOIN</div>
+                            </div>
                         </div>
 
                         <h2 className="lobby-title">Enter the lobby</h2>
@@ -752,21 +753,25 @@ export default function VideoMeetComponent() {
                                 <span className="brand-logo brand-logo--small" aria-hidden="true">
                                     <span className="brand-part-1">Link</span><span className="brand-part-2">Meet</span>
                                 </span>
-                                <span className="tally-dot tally-dot--live" aria-hidden="true"></span>
-                                LIVE
+                                <span className="status-indicator">
+                                    <span className="tally-dot tally-dot--live" aria-hidden="true"></span>
+                                    {/* <div className='status-lable'>LIVE</div> */}
+                                    Live
+                                </span>
                             </div>
                             <span className="stage-participants">{videos.length + 1} in the room</span>
                         </div>
 
                         {activeSharerId ? (
-                            
+
                             <div className="screen-share-layout">
+                                <div className="screen-share-stage-wrap">
                                 <div className="screen-share-stage">
                                     <video
                                         ref={el => {
                                             screenVideoRef.current = el;
                                             if (!el) return;
-                                            
+
                                             const streamToShow = activeSharerId === socketIdRef.current
                                                 ? window.localScreenStream
                                                 : (remoteScreenShare.socketId === activeSharerId ? remoteScreenShare.stream : null);
@@ -786,6 +791,7 @@ export default function VideoMeetComponent() {
                                             ? 'You are presenting'
                                             : `${getParticipantIdentity(activeSharerId).tag} is presenting`}
                                     </span>
+                                </div>
                                 </div>
 
                                 <div className="participant-strip">
